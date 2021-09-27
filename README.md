@@ -1,4 +1,4 @@
-# 08-lorem-ipsum_App_React.js
+# 09-color-generator_App_React.js
 
 ![image](https://user-images.githubusercontent.com/14126987/134945122-7eeb8b1b-1106-4275-abb7-bbbfe0485463.png)
 
