@@ -1,54 +1,40 @@
 import React, { useState } from "react";
-import SingleColor from "./SingleColor";
-
-import Values from "values.js";
-
+import data from "./data";
 function App() {
-  const [color, setColor] = useState("");
-  const [error, setError] = useState(false);
-  const [list, setList] = useState(new Values("#f15025").all(10));
+  const [count, setCount] = useState(0);
+  const [text, setText] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      let colors = new Values(color).all(10);
-      setList(colors);
-    } catch (error) {
-      setError(true);
-      console.log(error);
+    let amount = parseInt(count);
+    if (count <= 0) {
+      amount = 1;
     }
+    if (count > 8) {
+      amount = 8;
+    }
+    setText(data.slice(0, amount));
   };
-
   return (
-    <>
-      <section className="container">
-        <h3>color generator</h3>
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={color}
-            onChange={(e) => setColor(e.target.value)}
-            placeholder="#f15025"
-            className={`${error ? "error" : null}`}
-          />
-          <button className="btn" type="submit">
-            submit
-          </button>
-        </form>
-      </section>
-      <section className="colors">
-        {list.map((color, index) => {
-          return (
-            <SingleColor
-              key={index}
-              {...color}
-              index={index}
-              hexColor={color.hex}
-            />
-          );
+    <section className="section-center">
+      <h3>tired of boring lorem ipsum?</h3>
+      <form className="lorem-form" onSubmit={handleSubmit}>
+        <label htmlFor="amount">paragraphs:</label>
+        <input
+          type="number"
+          name="amount"
+          id="amount"
+          value={count}
+          onChange={(e) => setCount(e.target.value)}
+        />
+        <button className="btn">generate</button>
+      </form>
+      <article className="lorem-text">
+        {text.map((item, index) => {
+          return <p key={index}>{item}</p>;
         })}
-      </section>
-    </>
+      </article>
+    </section>
   );
 }
 
